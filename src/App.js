@@ -14,16 +14,29 @@ function App(props) {
     margin: "10px"
   }
 
+  const button = {
+    backgroundColor: "navy",
+    display: "block",
+    margin: "auto"
+  }
 
   //////////////////////
   // State & Other Variables
   ///////////////////////
   // API URL
-  const url = "https://buymyshoes.herokuapp.com/shoes"
+  const url = "https://buymyshoes.herokuapp.com/shoes/"
 
   // State to hold the list of posts
   const [shoes, setShoes] = useState([])
 
+  const nullShoe = {
+    title: "",
+    description: "",
+    image: "",
+    price: ""
+    }
+
+ const [targetShoe, setTargetShoe] = useState(nullShoe)
 
   /////////////////
   // Functions
@@ -34,12 +47,44 @@ function App(props) {
     setShoes(data)
   };
 
+  const addShoes = async (newShoe) => {
+    const response = await fetch(url, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newShoe)
+    });
+    getShoes();
+  };
+
+  const getTargetShoe = (shoe) => {
+    setTargetShoe(shoe)
+    props.history.push("/edit")
+  }
+
+  const updateShoe = async (shoe) => {
+    const response = await fetch(url + shoe.id + "/", {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(shoe)
+    })
+    getShoes()
+  }
+
+  const deleteShoe = async (shoe) => {
+    const response = await fetch(url + shoe.id + "/", {
+      method: "delete"
+    })
+    getShoes()
+  }
+
   //////////////////
   // useEffects
   //////////////////
   useEffect(() => {getShoes()}, [])
-
-
 
   /////////////////
   // Returned JSX
@@ -47,24 +92,37 @@ function App(props) {
 return (
   <div className="App">
   <h1 style={h1}>Buy My Shoe</h1>
+  <Link to="/new"><button style={button}>Post Shoe for sale</button></Link>
   <Switch>
   <Route
     exact 
     path="/"
-    render = {(rp) =><AllShoes shoes={shoes}{...rp}/>}
+    render = {(rp) => <AllShoes shoes={shoes} {...rp}/>}
   />
   <Route 
     path="/shoe/:id"
-    render = {(rp) => <SingleShoe {...rp}/>}
+    render = {(rp) => <SingleShoe
+      shoes={shoes} 
+      edit={getTargetShoe}
+      deleteShoe={deleteShoe}
+      {...rp}/>}
   />
   <Route
     path="/new"
-    render = {(rp) => <Form {...rp}/>}
+    render={(rp) => <Form 
+      initialShoe={nullShoe}
+      handleSubmit={addShoes}
+      buttonLabel="Sell Shoe"
+      {...rp}/>}
   />
   <Route
     path="/edit"
-    render = {(rp) => <Form {...rp}/>}
-  />
+    render={(rp) => <Form 
+      initialShoe={targetShoe}
+      handleSubmit={updateShoe}
+      buttonLabel="Update"
+      {...rp}/>}
+     />
   </Switch>
   </div>
 );

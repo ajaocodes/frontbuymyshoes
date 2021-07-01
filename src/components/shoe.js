@@ -1,5 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom"
+
 const Shoe = ({shoe}) => {
 
     /////////////////////
@@ -15,7 +16,7 @@ const Shoe = ({shoe}) => {
         <Link to={`/shoe/${shoe.id}`}>
             <h1>{shoe.title}</h1>
         </Link>
-        <h2>${shoe.price}</h2>
+        <h2>{shoe.price}</h2>
     </div>
 }
 export default Shoe;

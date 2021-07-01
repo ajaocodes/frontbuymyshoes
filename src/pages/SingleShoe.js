@@ -10,29 +10,34 @@ const SingleShoe = ({shoes, match, edit, deleteShoe, history}) => {
   //////////////////////
   const div = {
     textAlign: "center",
-    border: "3px solid green",
+    border: "2px dotted green",
     width: "80%",
     margin: "30px auto"
   }
+  const img = {
+    imageSize: "400px",
+    width: '40%',
+    height: '40%'
+  }
 
   return <div style={div}>
-    <h1>{shoe.title}</h1>
+    <h1 style = {{textfont:"40px"}}> {shoe.title}</h1>
     <h2>{shoe.description}</h2>
-    <h2>{shoe.image}</h2>
+    <img src={shoe.image} style={img} alt="" /><br /><br />
     <h2>${shoe.price}</h2>
 
-    <button onClick={(event) => {
+    <button style = {{margin: "10px",backgroundColor: "lightgreen"}}onClick={(event) => {
       edit(shoe)
       }
     }>Edit</button>
 
-    <button onClick={(event) => {
+    <button style = {{margin: "10px",backgroundColor: "red"}}onClick={(event) => {
       deleteShoe(shoe)
       history.push("/")
     }}>Delete</button>
 
     <Link to="/">
-      <button>Go Back</button>
+      <button style = {{margin: "10px",backgroundColor: "blue"}}>Go Back</button>
     </Link>
   </div>;
 };

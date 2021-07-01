@@ -1,6 +1,7 @@
 import AllShoes from './pages/AllShoes';
 import SingleShoe from './pages/SingleShoe';
 import Form from './pages/Form';
+import "milligram";
 import React, {useState, useEffect} from "react"
 import {Route, Switch, Link } from "react-router-dom"
 import './App.css';
@@ -9,13 +10,18 @@ function App(props) {
   ///////////////////
   // Style Objects
   ///////////////////
-  const h1 = {
+  const appname = {
     textAlign: "center",
-    margin: "10px"
+    margin: "10px",
+    backgroundColor: "lightgray",
+    color:"Purple",
+    size: "200em",
+    padding: "40px",
+    fontSize: "6em"
   }
 
   const button = {
-    backgroundColor: "navy",
+    backgroundColor: "green",
     display: "block",
     margin: "auto"
   }
@@ -91,10 +97,10 @@ function App(props) {
   /////////////////
 return (
   <div className="App">
-  <h1 style={h1}>Buy My Shoe</h1>
+  <h1 style={appname}>Buy My Shoes</h1>
   <Link to="/new"><button style={button}>Post Shoe for sale</button></Link>
   <Switch>
-  <Route
+  <Route 
     exact 
     path="/"
     render = {(rp) => <AllShoes shoes={shoes} {...rp}/>}

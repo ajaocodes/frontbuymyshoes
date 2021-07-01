@@ -22,27 +22,31 @@ const Form = ({ initialShoe, history, handleSubmit, buttonLabel }) => {
   }
   
     return (
-      <form onSubmit={handleSubmission}>
-        <input
+      <form onSubmit={handleSubmission} style={{padding: "20px"}}>
+        <input style= {{width:"100%",color: "black"}}
           type="text"
+          placeholder="Add title here"
           onChange={handleChange}
           value={formData.title}
           name="title"
         />
-        <input
+        <input style= {{width:"100%",color: "black"}}
           type="text"
+          placeholder="Add description here"
           onChange={handleChange}
           value={formData.description}
           name="description"
         />
-        <input
+        <input style= {{width:"100%",color: "black"}}
           type="text"
+          placeholder="Add image here"
           onChange={handleChange}
           value={formData.image}
           name="image"
         />
-        <input
+        <input style= {{width:"100%",color: "black"}}
         type="number"
+        placeholder="Add price here"
         onChange={handleChange}
         value={formData.price}
         name="price"

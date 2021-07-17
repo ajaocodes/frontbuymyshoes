@@ -14,7 +14,7 @@ const Form = ({ initialShoe, history, handleSubmit, buttonLabel }) => {
   const handleChange = (event) => {
     setFormData({...formData, [event.target.name]: event.target.value })
   }
-
+  
   const handleSubmission = (event) => {
     event.preventDefault()
     handleSubmit(formData)

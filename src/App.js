@@ -1,25 +1,21 @@
 import AllShoes from './pages/AllShoes';
 import SingleShoe from './pages/SingleShoe';
+import NavBar from './components/nav';
+import Signup from "./pages/signup";
+import Login from "./pages/login";
+import Footer from './components/footer';
+import Auth from './pages/Auth';
 import Form from './pages/Form';
 import "milligram";
 import React, {useState, useEffect} from "react"
 import {Route, Switch, Link } from "react-router-dom"
 import './App.css';
 
+
 function App(props) {
   ///////////////////
   // Style Objects
   ///////////////////
-  const appname = {
-    textAlign: "center",
-    margin: "10px",
-    backgroundColor: "lightgray",
-    color:"Purple",
-    size: "200em",
-    padding: "40px",
-    fontSize: "6em"
-  }
-
   const button = {
     backgroundColor: "green",
     display: "block",
@@ -29,11 +25,14 @@ function App(props) {
   //////////////////////
   // State & Other Variables
   ///////////////////////
+
   // API URL
   const url = "https://buymyshoes.herokuapp.com/shoes/"
 
-  // State to hold the list of posts
-  const [shoes, setShoes] = useState([])
+  // State to hold the list of shoes
+  const [shoes, setShoes] = useState([]);
+
+  // State to hold 
 
   const nullShoe = {
     title: "",
@@ -48,8 +47,11 @@ function App(props) {
   // Functions
   ////////////////
  const getShoes = async() => {
-    const response = await fetch(url)
+    const response = await fetch(url, {
+      method: "get",
+    })
     const data = await response.json()
+    console.log (data)
     setShoes(data)
   };
 
@@ -73,7 +75,7 @@ function App(props) {
     const response = await fetch(url + shoe.id + "/", {
       method: "put",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(shoe)
     })
@@ -87,6 +89,13 @@ function App(props) {
     getShoes()
   }
 
+  ////////////////////////////
+  //USER AUTH FUNCTIONS
+  ///////////////////////////
+
+
+
+
   //////////////////
   // useEffects
   //////////////////
@@ -96,9 +105,10 @@ function App(props) {
   // Returned JSX
   /////////////////
 return (
-  <div className="App">
-  <h1 style={appname}>Buy My Shoes</h1>
-  <Link to="/new"><button style={button}>Post Shoe for sale</button></Link>
+  <div Class="zap">
+  <Route path="/" component={NavBar} /> <br />
+   <Link to="/new"><button style={button}>Post Shoe for sale</button></Link>
+   <br />
   <Switch>
   <Route 
     exact 
@@ -129,9 +139,12 @@ return (
       buttonLabel="Update"
       {...rp}/>}
      />
+     <Route exact path="/signup" render={(rp) => <Signup {...rp} />} />
+     <Route exact path="/login" render={(rp) => <Login {...rp} />} />
   </Switch>
+  <Route path="/" component={Footer} />
   </div>
-);
+  );
 }
 
 export default App;

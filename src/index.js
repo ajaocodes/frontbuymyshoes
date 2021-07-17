@@ -4,6 +4,8 @@ import "./index.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import App from "./App";
 import "milligram";
+import "react-bootstrap";
+import './App.css';
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
